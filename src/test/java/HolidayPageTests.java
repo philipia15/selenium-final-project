@@ -1,11 +1,10 @@
-import ge.tbc.testAutomation.data.FetchPricesFromAPI;
+import ge.tbc.testAutomation.util.FetchPricesFromAPI;
 import ge.tbc.testAutomation.util.BeforeAfterClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +12,6 @@ import java.util.List;
 import static org.openqa.selenium.By.*;
 
 public class HolidayPageTests extends BeforeAfterClass {
-    @BeforeTest
-    @Test
-    public void beforeTest(){
-        super.beforeTest();
-    }
     @Test
     public void descendingOrderTest() {
         //Go to the 'დასვენება' section
@@ -68,7 +62,7 @@ public class HolidayPageTests extends BeforeAfterClass {
         Assert.assertEquals(firstOfferPrice, minPrice);
     }
     @Test
-    public void filterTest() throws InterruptedException {
+    public void filterTest(){
         //Go to the 'დასვენება' section
         WebElement holidaySection = wait.until(ExpectedConditions.elementToBeClickable(linkText("დასვენება")));
         holidaySection.click();
@@ -78,9 +72,7 @@ public class HolidayPageTests extends BeforeAfterClass {
         mountainResorts.click();
 
         //Choose 'სრული გადახდა' filter
-        Thread.sleep(5000);
-        WebElement fullPayment = driver.findElement(By.xpath("//*[@id='radio-გადახდის ტიპი-1']"));
-
+        WebElement fullPayment = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='radio-გადახდის ტიპი-1']")));
         fullPayment.click();
 
         // Validate its presence
@@ -132,9 +124,5 @@ public class HolidayPageTests extends BeforeAfterClass {
                 assert price <= 1000 : "Expected price less than or equal to 1000, but got " + price;
             }
         }
-    }
-    @AfterTest
-    public void afterTest(){
-        super.afterTest();
     }
 }

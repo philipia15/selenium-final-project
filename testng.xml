@@ -5,35 +5,26 @@
 <suite name="TestSuite" thread-count="3" parallel="tests">
     <test name="ChromeTest">
         <parameter name="browserType" value="chrome"/>
-        <parameter name="isSomething" value="true"/>
         <classes>
-            <class name="ge.tbcitacademy.executor.JSexecutor">
-                <!--                <methods>-->
-                <!--                    <include name=""-->
-                <!--                </methods>-->
-            </class>
+            <class name="HolidayPageTests"/>
+            <class name="LandingPageTests"/>
+            <class name="MoviePageTests"/>
         </classes>
     </test>
     <test name="EdgeTest">
         <parameter name="browserType" value="edge"/>
-        <parameter name="isSomething" value="true"/>
         <classes>
-            <class name="ge.tbcitacademy.executor.JSexecutor">
-                <!--                <methods>-->
-                <!--                    <include name=""-->
-                <!--                </methods>-->
-            </class>
+            <class name="HolidayPageTests"/>
+            <class name="LandingPageTests"/>
+            <class name="MoviePageTests"/>
         </classes>
     </test>
     <test name="FirefoxTest">
         <parameter name="browserType" value="Firefox"/>
-        <parameter name="isSomething" value="true"/>
         <classes>
-            <class name="ge.tbcitacademy.executor.JSexecutor">
-                <!--                <methods>-->
-                <!--                    <include name=""-->
-                <!--                </methods>-->
-            </class>
+            <class name="HolidayPageTests"/>
+            <class name="LandingPageTests"/>
+            <class name="MoviePageTests"/>
         </classes>
     </test>
 </suite>

@@ -1,4 +1,4 @@
-package ge.tbc.testAutomation.data;
+package ge.tbc.testAutomation.util;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import ge.tbc.testAutomation.data.Constants;
 import org.openqa.selenium.WebElement;
 
 public class FetchPricesFromAPI {
@@ -15,7 +16,7 @@ public class FetchPricesFromAPI {
 
         try {
             // 1. API URL
-            String apiUrl = "https://api.swoop.ge/api/search?filter[cat_id]=24&LangID=1";
+            String apiUrl = Constants.PRICE_API_URL;
 
             // 2. HTTP მოთხოვნა
             HttpClient client = HttpClient.newHttpClient();
@@ -45,7 +46,7 @@ public class FetchPricesFromAPI {
     public static Double FetchMinPrice() {
         try {
             // 1. API URL
-            String apiUrl = "https://api.swoop.ge/api/search?filter[cat_id]=24&LangID=1";
+            String apiUrl = Constants.PRICE_API_URL;
 
             // 2. HTTP მოთხოვნა
             HttpClient client = HttpClient.newHttpClient();
@@ -73,11 +74,102 @@ public class FetchPricesFromAPI {
         }
 
     }
+    public static String FetchDate() {
+        try {
+            // 1. API URL
+            String apiUrl = Constants.DATA_API_URL;
+
+            // 2. HTTP მოთხოვნა
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(java.net.URI.create(apiUrl))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // 4. JSON Parsing
+            JsonObject jsonResponse = JsonParser.parseString(response.body()).getAsJsonObject();
+
+            // 5. ამოღება date
+            JsonObject dateObject = jsonResponse.getAsJsonObject("data");
+
+
+            String date = dateObject.get("date").getAsString();
+
+            return date;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch date", e);
+        }
+    }
+
+    public static String FetchCinemaName() {
+            try {
+                // 1. API URL
+                String apiUrl = Constants.DATA_API_URL;
+
+                // 2. HTTP მოთხოვნა
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(java.net.URI.create(apiUrl))
+                        .GET()
+                        .build();
+
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+                // 4. JSON Parsing
+                JsonObject jsonResponse = JsonParser.parseString(response.body()).getAsJsonObject();
+
+                // 5. ამოღება date
+                JsonObject dateObject = jsonResponse.getAsJsonObject("data");
+
+
+                String cinemaName = dateObject.get("merchant_name").getAsString();
+
+                return cinemaName;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Failed to fetch date", e);
+            }
+    }
+    public static String FetchMovieName() {
+        try {
+            // 1. API URL
+            String apiUrl = Constants.DATA_API_URL;
+
+            // 2. HTTP მოთხოვნა
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(java.net.URI.create(apiUrl))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // 4. JSON Parsing
+            JsonObject jsonResponse = JsonParser.parseString(response.body()).getAsJsonObject();
+
+            // 5. ამოღება date
+            JsonObject dateObject = jsonResponse.getAsJsonObject("data");
+
+
+            String movieName = dateObject.get("movie_name").getAsString();
+
+            return movieName;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch date", e);
+        }
+    }
 
     public static Double FetchMaxPriceMountain() {
         try {
             // 1. API URL
-            String apiUrl = "https://api.swoop.ge/api/search?filter[payment_type]=0&filter[cat_id]=2045&sort_id=1&LangID=1";
+            String apiUrl = Constants.MAX_PRICE_MOUNTAIN_API_URL;
 
             // 2. HTTP მოთხოვნა
             HttpClient client = HttpClient.newHttpClient();
