@@ -2,7 +2,6 @@ package ge.tbc.testAutomation.util;
 
 import ge.tbc.testAutomation.data.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,26 +22,23 @@ public class BeforeAfterClass {
     public WebDriverWait wait;
     @Parameters({"browserType"})
     @BeforeClass
-    public void beforeTest(@Optional("chrome") String browserType){
+    public void beforeTest(@Optional("edge") String browserType){
         if (browserType.equals("chrome")){
             WebDriverManager.chromedriver().setup();
             this.driver = new ChromeDriver();
-            this.driver.manage().window().maximize();
             this.driver.get(Constants.MAIN_URL);
         }
         else if(browserType.equals("edge")){
             WebDriverManager.edgedriver().setup();
             this.driver = new EdgeDriver();
-            this.driver.manage().window().maximize();
             this.driver.get(Constants.MAIN_URL);
         }else {
             WebDriverManager.firefoxdriver().setup();
             this.driver = new FirefoxDriver();
-            this.driver.manage().window().maximize();
             this.driver.get(Constants.MAIN_URL);
         }
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        this.driver.manage().window().maximize();
         WebElement cookie = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(text(),'ვეთანხმები')]")));
         cookie.click();
     }
